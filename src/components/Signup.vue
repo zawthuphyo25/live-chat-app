@@ -10,6 +10,7 @@
 
 <script>
 import { ref } from "vue";
+import { auth } from "../firebase/config";
 
 export default {
   setup() {
@@ -17,8 +18,24 @@ export default {
     const email = ref("");
     const password = ref("");
 
+    let error = ref(null);
     let signUp = async () => {
-      console.log(displayName.value, email.value, password.value);
+      // console.log(displayName.value, email.value, password.value);
+      try {
+        let res = await auth.createUserWithEmailAndPassword(
+          email.value,
+          password.value
+        );
+
+        if (!res) {
+          throw new Error("Could not create new user");
+        }
+        console.log(res.user);
+      } catch (err) {
+        // console.log(err.message);
+        error.value = err.message;
+        // console.log(error.value);
+      }
     };
 
     return {
