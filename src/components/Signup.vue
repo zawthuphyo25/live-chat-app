@@ -22,9 +22,9 @@ export default {
     let signUp = async () => {
       // console.log(displayName.value, email.value, password.value);
       let res = await createAccount(
-        displayName.value,
         email.value,
-        password.value
+        password.value,
+        displayName.value
       );
       console.log(res.user);
     };
