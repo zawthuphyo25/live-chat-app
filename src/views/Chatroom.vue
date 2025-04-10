@@ -1,12 +1,14 @@
 <template>
-  <div class="chatroom">
-    <h1>Chatroom</h1>
-    <p>Welcome to the chatroom!</p>
+  <div class="container">
+    <Navbar></Navbar>
   </div>
 </template>
 
 <script>
-export default {};
+import Navbar from "../components/Navbar";
+export default {
+  components: { Navbar },
+};
 </script>
 
 <style></style>
