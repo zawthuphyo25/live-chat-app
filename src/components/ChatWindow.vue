@@ -2,7 +2,7 @@
   <div class="chat-window">
     <div class="messages" v-for="message in messages" :key="message.id">
       <div class="singal">
-        <span class="created-at">{{ message.created_at }}</span>
+        <span class="created-at">{{ message.created_at.toDate() }}</span>
         <span class="name">{{ message.name }}</span>
         <span class="message">{{ message.message }}</span>
       </div>
@@ -28,12 +28,18 @@ export default {
             id: doc.id,
             ...doc.data(),
           };
+
+          // if (doc.data().created_at) {
+          //   results.push(document);
+          // }
+          doc.data().created_at && results.push(document);
+
           //   console.log(document);
-          results.push(document);
+
           //   console.log(results);
         });
         messages.value = results;
-        console.log(messages.value);
+        // console.log(messages.value);
       });
     return {
       messages,
