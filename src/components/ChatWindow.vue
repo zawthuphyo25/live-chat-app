@@ -1,6 +1,6 @@
 <template>
   <div class="chat-window">
-    <div class="messages">
+    <div class="messages" ref="msgBox">
       <div
         class="singal"
         v-for="message in formattedMessages"
@@ -16,12 +16,20 @@
 
 <script>
 import { db } from "@/firebase/config";
-import { computed, ref } from "vue";
+import { computed, onUpdated, ref } from "vue";
 import { formatDistanceToNow } from "date-fns";
 
 export default {
   setup() {
     let messages = ref([]);
+    let msgBox = ref(null);
+
+    //auto scrolling feature
+    onUpdated(() => {
+      // console.log(msgBox.value.scrollTop);
+      // console.log(msgBox.value.scrollHeight);
+      msgBox.value.scrollTop = msgBox.value.scrollHeight;
+    });
 
     let formattedMessages = computed(() => {
       return messages.value.map((msg) => {
@@ -60,6 +68,7 @@ export default {
     return {
       messages,
       formattedMessages,
+      msgBox,
     };
   },
 };
